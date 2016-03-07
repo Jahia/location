@@ -15,6 +15,7 @@ The angular google map framework (http://angular-ui.github.io/angular-google-map
 ##Multiple markers view
 If you want to create a map with multiples markers all you have to do is to put the map component on your page, link it to a list of component that define an adress
 And of course select the multiple markers view for the map component.
+By default the map will be centered on the first location found in the bound list component
 
 ##Simple marker view
 In the other case if you want to create a map with only one single marker, then you can put the component on your page and link it directly to a component wich defined an adress
