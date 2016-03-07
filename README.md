@@ -1,5 +1,5 @@
 # Jahia Location Module
-Jahia location repository
+angular-location branch information
 
 This branch contains the angular views for the jnt_map component.
 Two new views have been added to the component : 
