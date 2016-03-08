@@ -35,13 +35,13 @@
                     angular.bootstrap(document.getElementById("jnt-map-${currentNode.identifier}"),['jahiaMapApp']);
                 });
                 locale='${renderContext.mainResourceLocale.language}';
-                <!-- Prepare the map object with the component parameters,
-                     this object will be used to create an angular googleMap object in the controller -->
+                //Prepare the map object with the component parameters,
+                //this object will be used to create an angular googleMap object in the controller
                 if(typeof maps === 'undefined'){
                     maps = [];
                 }
-                <!-- Objects are declared as list just for the case on which there will be multiple maps on the same page
-                     Each map is distinguished by its jcr-uuid-->
+                //Objects are declared as list just for the case on which there will be multiple maps on the same page
+                //Each map is distinguished by its jcr-uuid-->
                 maps['jnt-map-${currentNode.identifier}'] = {
                     mapType : google.maps.MapTypeId.${fn:toUpperCase(props['j:mapType'])},
                     mapZoom : "${props['j:zoom']}",
@@ -125,7 +125,9 @@
         </div>
     </c:when>
     <c:otherwise>
-        <!-- We notify the user in case the component is bound on the wrong nodeType-->
-        <fmt:message key="jnt_map.misbound.list"/>
+        <c:if test="${renderContext.editMode}">
+            <!-- We notify the user in case the component is bound on the wrong nodeType-->
+            <fmt:message key="jnt_map.misbound.list"/>
+        </c:if>
     </c:otherwise>
 </c:choose>
