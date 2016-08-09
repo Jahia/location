@@ -78,16 +78,22 @@
 		placeHolders.each(function() {
 		    var myMap = new google.maps.Map(this, opts);
 		    if (opts.markers && opts.markers.length > 0) {
+				var bounds = new google.maps.LatLngBounds();
 		    	$(opts.markers).each(function () {
 			    	_setMarker(this, myMap, opts);
+					var position = new google.maps.LatLng(this.latitude,this.longitude);
+					bounds.extend(position);
 		    	});
+				if (opts.markers.length > 1) {
+					myMap.fitBounds(bounds);
+				}
 		    }
 		});
 	}
 	
 	function _setMarker(marker, myMap, opts) {
     	var latlng = marker.latitude && marker.longitude ? new google.maps.LatLng(marker.latitude, marker.longitude) : (marker.address && opts.address && opts.address == marker.address ? opts.center : null);
-    	
+
     	var markerOpts = {map: myMap, icon: marker.icon, title: marker.title};
     	if (latlng != null) {
     		var myMarker = new google.maps.Marker($.extend(markerOpts, {position: latlng}));
