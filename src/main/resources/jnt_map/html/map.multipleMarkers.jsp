@@ -7,7 +7,7 @@
 <%@ taglib prefix="ui" uri="http://www.jahia.org/tags/uiComponentsLib" %>
 <c:set var="boundComponent" value="${ui:getBindedComponent(currentNode, renderContext, 'j:bindedComponent')}"/>
 <c:choose>
-	<c:when test="${not empty boundComponent && jcr:isNodeType(boundComponent, 'jnt:contentList')}">
+	<c:when test="${not empty boundComponent && jcr:isNodeType(boundComponent, 'jmix:list')}">
 		<c:set var="props" value="${currentNode.propertiesAsString}"/>
 		<c:if test="${!renderContext.editMode}">
 			<c:set var="targetProps" value="${bindedComponent.propertiesAsString}"/>
