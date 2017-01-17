@@ -49,10 +49,10 @@
   <parent>
     <groupId>org.jahia.modules</groupId>
     <artifactId>jahia-modules</artifactId>
-    <version>7.0.0.0</version>
+    <version>7.3.0.0-cf_2017_oievstafiev-SNAPSHOT</version>
   </parent>
   <artifactId>location</artifactId>
-  <version>2.0.4-SNAPSHOT</version>
+  <version>2.0.4-cf_2017_oievstafiev-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>Jahia Location</name>
   <description>These are the custom module (Jahia Location) for running on a Jahia server.</description>
