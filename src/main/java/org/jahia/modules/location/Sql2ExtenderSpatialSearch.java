@@ -10,6 +10,8 @@ import javax.jcr.query.qom.StaticOperand;
 import org.apache.jackrabbit.commons.query.qom.OperandEvaluator;
 import org.apache.jackrabbit.core.id.PropertyId;
 import org.apache.jackrabbit.core.query.lucene.JackrabbitIndexSearcher;
+import org.apache.jackrabbit.core.query.lucene.JackrabbitTermQuery;
+import org.apache.jackrabbit.core.query.lucene.JahiaLuceneQueryFactoryImpl;
 import org.apache.jackrabbit.core.state.ItemStateException;
 import org.apache.jackrabbit.core.state.ItemStateManager;
 import org.apache.jackrabbit.core.state.NodeState;
@@ -21,7 +23,7 @@ import org.apache.jackrabbit.spi.commons.query.qom.ConstraintImpl;
 import org.apache.jackrabbit.spi.commons.query.qom.QOMTreeVisitor;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.search.MatchAllDocsQuery;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.spatial.tier.DistanceQueryBuilder;
 import org.apache.lucene.spatial.tier.projections.CartesianTierPlotter;
@@ -29,6 +31,7 @@ import org.apache.lucene.spatial.tier.projections.SinusoidalProjector;
 import org.apache.lucene.util.NumericUtils;
 import org.jahia.api.Constants;
 import org.jahia.exceptions.JahiaRuntimeException;
+import org.jahia.services.content.nodetypes.NodeTypeRegistry;
 import org.jahia.services.search.jcr.IndexExtender;
 import org.jahia.services.search.jcr.QueryExtender;
 
@@ -134,10 +137,20 @@ public class Sql2ExtenderSpatialSearch implements IndexExtender, QueryExtender {
     }
 
     @Override
-    public Query getQuery(Constraint constraint, Map<String, NodeType> selectorMap, JackrabbitIndexSearcher searcher, OperandEvaluator operandEvaluator) {
+    public String getSelectorName(Constraint constraint) {
         if (!(constraint instanceof WithinCircle)) {
             return null;
         }
+        return ((WithinCircle) constraint).getSelectorName();
+    }
+
+    @Override
+    public Query getQuery(Constraint constraint, Map<String, NodeType> selectorMap, JackrabbitIndexSearcher searcher, OperandEvaluator operandEvaluator, JahiaLuceneQueryFactoryImpl queryFactory) {
+
+        if (!(constraint instanceof WithinCircle)) {
+            return null;
+        }
+
         WithinCircle withinCircle = (WithinCircle) constraint;
         double latitude;
         double longitude;
@@ -153,7 +166,16 @@ public class Sql2ExtenderSpatialSearch implements IndexExtender, QueryExtender {
             throw new IllegalArgumentException("Search radius must be within the range of (" + MIN_SEARCH_RADIUS_KM + ", " + MAX_SEARCH_RADIUS_KM + ") km");
         }
         DistanceQueryBuilder queryBuilder = new DistanceQueryBuilder(latitude, longitude, kilometerToMile(radius), LUCENE_FIELD_LATITUDE, LUCENE_FIELD_LONGITUDE, CartesianTierPlotter.DEFALT_FIELD_PREFIX, true);
-        return queryBuilder.getQuery(new MatchAllDocsQuery());
+
+        Term term;
+        try {
+            NodeType jmixGeotagged = NodeTypeRegistry.getInstance().getNodeType("jmix:geotagged");
+            term = queryFactory.createNodeTypeTerm(jmixGeotagged);
+        } catch (RepositoryException e) {
+            throw new JahiaRuntimeException(e);
+        }
+
+        return queryBuilder.getQuery(new JackrabbitTermQuery(term));
     }
 
     public static double kilometerToMile(double kilometer) {
