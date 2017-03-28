@@ -19,8 +19,10 @@ global JCRStoreProvider provider
 rule "Geocode location"
    when
        A property j:street has been set on a node
-			- the node has the type jnt:location
-            - not in operation import
+           - the node has the type jnt:location
+           - not in operation import
+       The property j:latitude is not defined for the node
+       The property j:longitude is not defined for the node
    then
        Geocode the node
 end
@@ -28,8 +30,10 @@ end
 rule "Geocode location aware"
    when
        A property j:street has been set on a node
-			- the node has the type jmix:locationAware
-            - not in operation import
+           - the node has the type jmix:locationAware
+           - not in operation import
+       The property j:latitude is not defined for the node
+       The property j:longitude is not defined for the node
    then
        Geocode the node
 end
