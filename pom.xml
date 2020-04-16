@@ -49,10 +49,10 @@
   <parent>
     <groupId>org.jahia.modules</groupId>
     <artifactId>jahia-modules</artifactId>
-    <version>7.0.0.0</version>
+    <version>7.5.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>location</artifactId>
-  <version>2.0.6-SNAPSHOT</version>
+  <version>3.0.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>Jahia Location</name>
   <description>These are the custom module (Jahia Location) for running on a Jahia server.</description>
@@ -62,6 +62,12 @@
     <url>scm:git:git@github.com:Jahia/location.git</url>
     <tag>HEAD</tag>
   </scm>
+
+  <properties>
+    <require-capability>osgi.extender;filter:="(osgi.extender=org.jahia.bundles.blueprint.extender.config)"</require-capability>
+    <jahia-module-signature>MCwCFD203/hsXQLp+CQQnJQENHImFxUuAhRTIauFzrVVpK54F4TghD7FGbwe5w==</jahia-module-signature>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>com.google.code.geocoder-java</groupId>
