@@ -17,7 +17,7 @@
 							   resources="https://maps.google.com/maps/api/js?sensor=false&amp;language=${currentResource.locale.language}${mapKey}"/>
 	    <template:addResources type="javascript" resources="jquery.min.js"/>
 	    <template:addResources type="javascript" resources="jquery.jahia-googlemaps.js"/>
-	
+
 	    <c:choose>
 	        <c:when test="${not empty targetProps['j:latitude'] && not empty targetProps['j:longitude']}">
 	            <c:set var="location" value="${targetProps['j:latitude']},${targetProps['j:longitude']}" />
@@ -26,6 +26,7 @@
 	            <c:set var="location" value="${targetProps['j:street']}" />
 	            <c:set var="location" value="${location}${not empty location ? ', ' : ''}${targetProps['j:zipCode']}" />
 	            <c:set var="location" value="${location}${not empty location ? ', ' : ''}${targetProps['j:town']}" />
+	            <c:set var="location" value="${location}${not empty location ? ', ' : ''}${targetProps['j:state']}" />
 	            <jcr:nodePropertyRenderer name="j:country" node="${bindedComponent}" renderer="country" var="country" />
 	            <c:set var="location" value="${location}${not empty location ? ', ' : ''}${country.displayName}" />
 	        </c:otherwise>
@@ -58,9 +59,12 @@
 	                                + "<br/>"
 	                                <c:if test="${not empty targetProps['j:zipCode']}">
 	                                + "${functions:escapeJavaScript(targetProps['j:zipCode'])}&nbsp;"
-	                                </c:if>
-	                                + "${not empty targetProps['j:town'] ? functions:escapeJavaScript(targetProps['j:town']) : ''}"
-	                                </c:if>
+									</c:if>
+									+ "${not empty targetProps['j:town'] ? functions:escapeJavaScript(targetProps['j:town']) : ''}"
+									<c:if test="${not empty targetProps['j:state']}">
+									+ "<br/>${functions:escapeJavaScript(targetProps['j:state'])}"
+									</c:if>
+									</c:if>
 	                                <jcr:nodePropertyRenderer name="j:country" node="${currentNode}" renderer="country" var="country"/>
 	                                +"<br/>${functions:escapeJavaScript(country.displayName)}"
 	                    }]

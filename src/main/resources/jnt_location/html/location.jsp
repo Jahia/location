@@ -21,6 +21,9 @@
                 ${fn:escapeXml(props['j:zipCode'])}&nbsp;
             </c:if>
             ${not empty props['j:town'] ? fn:escapeXml(props['j:town']) : ''}
+            <c:if test="${not empty props['j:state']}">
+                <br/>fn:escapeXml(props['j:state'])
+            </c:if>
         </p>
     </c:if>
     <p class="location-item">
