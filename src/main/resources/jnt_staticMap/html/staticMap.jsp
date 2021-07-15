@@ -13,7 +13,7 @@
         <c:if test="${not empty props['jcr:title']}">
             <h3>${fn:escapeXml(props['jcr:title'])}</h3>
         </c:if>
-    
+
         <c:url var="mapUrl" value="https://maps.google.com/maps/api/staticmap">
             <c:param name="sensor" value="false"/>
             <c:if test="${not empty props['j:zoom'] && props['j:zoom'] != 'auto'}">
@@ -32,6 +32,7 @@
                     <c:set var="location" value="${targetProps['j:street']}"/>
                     <c:set var="location" value="${location}${not empty location ? ',' : ''}${targetProps['j:zipCode']}"/>
                     <c:set var="location" value="${location}${not empty location ? ',' : ''}${targetProps['j:town']}"/>
+                    <c:set var="location" value="${location}${not empty location ? ',' : ''}${targetProps['j:state']}"/>
                     <jcr:nodePropertyRenderer name="j:country" node="${bindedComponent}" renderer="country" var="country"/>
                     <c:set var="location" value="${location}${not empty location ? ',' : ''}${country.displayName}"/>
                 </c:otherwise>
@@ -49,7 +50,7 @@
                 <c:param name="key" value="${locationMapKey}"/>
             </c:if>
         </c:url>
-        
+
         <p class="location-static-map">
             <c:set var="mapTitle" value="${fn:escapeXml(fn:replace(location, ',', ', '))}"/>
             <img src="${fn:escapeXml(mapUrl)}" title="${mapTitle}" alt="${mapTitle}"/>

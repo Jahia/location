@@ -18,12 +18,14 @@
  - j:zipCode (string) analyzer='keyword'
  - j:town (string) facetable
  - j:country (string,choicelist[country,flag]) facetable
+ - j:state (string) facetable
  - j:geocodeAutomatically (boolean) = true autocreated
 
 [jnt:location] > jnt:content, mix:title, jmix:editorialContent, jmix:structuredContent
  - j:street (string)
  - j:zipCode (string) analyzer='keyword'
  - j:town (string) facetable
+ - j:state (string) facetable
  - j:country (string,choicelist[country,flag]) facetable
  - j:latitude (string) nofulltext
  - j:longitude (string) nofulltext
@@ -35,7 +37,7 @@
  - j:imageType (string,choicelist[resourceBundle]) = 'png8' indexed=no < 'png8','png32','gif','jpg','jpg-baseline'
  - j:height (long) = 300 indexed=no < '[1,640]'
  - j:width (long) = 500 indexed=no < '[1,640]'
- - j:markerSize (string,choicelist) = 'normal' indexed=no < 'normal','mid','small','tiny' 
+ - j:markerSize (string,choicelist) = 'normal' indexed=no < 'normal','mid','small','tiny'
  - j:markerColor (string,choicelist[resourceBundle]) = 'normal' indexed=no < 'normal','black','brown','green','purple','yellow','blue','gray','orange','red','white'
 
 [jnt:map] > jnt:content, mix:title, jmix:bindedComponent, jmix:siteComponent
@@ -44,4 +46,3 @@
  - j:height (long) = 300 indexed=no
  - j:width (long) = 500 indexed=no
  - j:markerImage (weakreference, picker[type='image'])
- 

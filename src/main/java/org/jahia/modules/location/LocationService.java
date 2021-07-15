@@ -71,6 +71,9 @@ public class LocationService {
         if (nodeWrapper.hasProperty("j:town")) {
             address.append(" ").append(nodeWrapper.getProperty("j:town").getString());
         }
+        if (nodeWrapper.hasProperty("j:state")) {
+            address.append(" ").append(nodeWrapper.getProperty("j:state").getString());
+        }
         if (nodeWrapper.hasProperty("j:country")) {
             address.append(" ").append(nodeWrapper.getProperty("j:country").getString());
         }
