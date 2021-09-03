@@ -68,20 +68,6 @@
     <jahia-module-signature>MC0CFQCJepDAQthEDHqszKlv0QyDeKY2IwIUBBUD/fP8FHQ2St4tcFdKakvIdAA=</jahia-module-signature>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>com.google.code.geocoder-java</groupId>
-      <artifactId>geocoder-java</artifactId>
-      <version>0.9</version>
-      <classifier>jdk5</classifier>
-      <exclusions>
-        <exclusion>
-          <artifactId>commons-lang</artifactId>
-          <groupId>commons-lang</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-  </dependencies>
   <repositories>
     <repository>
       <releases>
