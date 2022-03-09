@@ -37,7 +37,7 @@
 
   <properties>
     <require-capability>osgi.extender;filter:="(osgi.extender=org.jahia.bundles.blueprint.extender.config)"</require-capability>
-    <jahia-module-signature>MCwCFFSf3+3fsPKWgu5zx0a5AKU8uOW7AhQd2fC9qwrcUHpBdcjIgXC3koMSBw==</jahia-module-signature>
+    <jahia-module-signature>MCwCFHX2ndGrFhUaeH8bWfG+kMLFP5ZsAhRNOFlbYw+kqLk3dpNxr9hrlSkvbA==</jahia-module-signature>
   </properties>
 
   <repositories>
